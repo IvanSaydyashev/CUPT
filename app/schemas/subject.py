@@ -10,6 +10,8 @@ class SubjectBase(BaseModel):
 class SubjectCreate(SubjectBase):
     creator_id: UUID
     group_id: UUID | None = None
+    class Config:
+        from_attributes = True
 
 
 class SubjectRead(SubjectBase):
@@ -19,4 +21,4 @@ class SubjectRead(SubjectBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

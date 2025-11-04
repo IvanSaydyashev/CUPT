@@ -12,7 +12,8 @@ class StudySessionCreate(StudySessionBase):
     user_id: UUID
     subject_id: UUID
     group_id: UUID | None = None
-
+    class Config:
+        from_attributes = True
 
 class StudySessionRead(StudySessionBase):
     session_id: UUID
@@ -22,4 +23,4 @@ class StudySessionRead(StudySessionBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

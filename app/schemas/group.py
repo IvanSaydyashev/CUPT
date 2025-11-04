@@ -15,7 +15,8 @@ class GroupBase(BaseModel):
 class GroupCreate(GroupBase):
     hashed_password: str | None = None
     creator_id: UUID = None
-
+    class Config:
+        from_attributes = True
 
 class GroupRead(GroupBase):
     group_id: UUID
@@ -23,4 +24,4 @@ class GroupRead(GroupBase):
     created_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

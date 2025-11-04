@@ -10,11 +10,12 @@ class SessionIntervalBase(BaseModel):
 
 class SessionIntervalCreate(SessionIntervalBase):
     session_id: UUID
-
+    class Config:
+        from_attributes = True
 
 class SessionIntervalRead(SessionIntervalBase):
     interval_id: UUID
     session_id: UUID
 
     class Config:
-        orm_mode = True
+        from_attributes = True

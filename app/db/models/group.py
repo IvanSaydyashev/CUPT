@@ -12,6 +12,7 @@ from sqlalchemy import (
     Boolean,
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.sql.schema import ForeignKey
 
 from app.db.base import Base
 
@@ -36,7 +37,12 @@ class Group(Base):
     hashed_password = Column(String, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    creator_id = Column(UUID(as_uuid=True), nullable=True)
+    creator_id = Column(
+        UUID(as_uuid=True),
+        ForeignKey("users.user_id", ondelete="Set NULL"),
+        nullable=True,
+    )
+
     creator = relationship(
         "User", back_populates="created_groups", foreign_keys=[creator_id]
     )

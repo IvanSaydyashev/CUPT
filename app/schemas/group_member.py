@@ -11,7 +11,8 @@ class GroupMemberBase(BaseModel):
 class GroupMemberCreate(GroupMemberBase):
     group_id: UUID
     user_id: UUID
-
+    class Config:
+        from_attributes = True
 
 class GroupMemberRead(GroupMemberBase):
     group_id: UUID
@@ -19,4 +20,4 @@ class GroupMemberRead(GroupMemberBase):
     joined_at: datetime
 
     class Config:
-        orm_mode = True
+        from_attributes = True

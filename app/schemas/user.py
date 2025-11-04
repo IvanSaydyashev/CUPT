@@ -12,6 +12,9 @@ class UserBase(BaseModel):
 class UserCreate(UserBase):
     telegram_id: int
 
+    class Config:
+        orm_mode = True
+
 
 class UserRead(UserBase):
     user_id: uuid.UUID
