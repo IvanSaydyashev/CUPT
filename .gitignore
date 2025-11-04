@@ -1,0 +1,12 @@
+# Python
+__pycache__/
+
+# Установленные зависимости
+.env
+.venv/
+.idea/
+.idea/.gitignore
+
+# alembic
+alembic.ini
+/alembic/
