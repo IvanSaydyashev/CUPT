@@ -5,7 +5,6 @@ __pycache__/
 .env
 .venv/
 .idea/
-.idea/.gitignore
 
 # alembic
 alembic.ini

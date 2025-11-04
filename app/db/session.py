@@ -7,17 +7,18 @@ from app.core.config import Settings
 
 settings = Settings()  # type: ignore
 
+
 class Base(DeclarativeBase):
     pass
+
 
 DATABASE_URL = str(settings.DATABASE_URL)
 engine = create_async_engine(DATABASE_URL, echo=True)
 
 async_session_maker = async_sessionmaker(
-    bind=engine,
-    class_=AsyncSession,
-    expire_on_commit=False
+    bind=engine, class_=AsyncSession, expire_on_commit=False
 )
+
 
 async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
     """

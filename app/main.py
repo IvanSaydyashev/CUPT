@@ -10,7 +10,9 @@ from telegram import Bot
 
 from app.core.config import Settings
 from app.db.session import get_async_session, engine, Base
+
 app = FastAPI()
+
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
@@ -21,6 +23,7 @@ async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     yield
     await engine.dispose()
 
+
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -30,9 +33,11 @@ app.add_middleware(
     expose_headers=["*"],
 )
 
+
 @app.get("/")
 async def root():
     return {"status": "ok"}
+
 
 @app.post("/")
 async def db_access(db: AsyncSession = Depends(get_async_session)):
