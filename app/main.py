@@ -9,20 +9,23 @@ from fastapi.middleware.cors import CORSMiddleware
 from telegram import Bot
 
 from app.core.config import Settings
-from app.db.session import get_async_session, engine, Base
+from app.db.base import Base
+from app.db.session import engine, get_async_session
 
-app = FastAPI()
+import app.db.models  # type: ignore
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI) -> AsyncGenerator[None, None]:
     settings = Settings()  # type: ignore
-    app.state.bot = Bot(token=settings.TG_TOKEN)
+    app.state.bot = Bot(token=settings.BOT_TOKEN)
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
     yield
     await engine.dispose()
 
+
+app = FastAPI(lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -37,6 +40,17 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"status": "ok"}
+
+
+@app.get("/config")
+async def show_config():
+    settings = Settings()  # type: ignore
+    return {
+        "database_url": settings.DATABASE_URL,
+        "host": settings.POSTGRES_HOST,
+        "user": settings.POSTGRES_USER,
+        "db": settings.POSTGRES_DB,
+    }
 
 
 @app.post("/")

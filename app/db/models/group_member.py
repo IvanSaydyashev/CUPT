@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Column, ForeignKey, Enum, DateTime, func, UUID
 from sqlalchemy.orm import relationship
 
-from app.db.session import Base
+from app.db.base import Base
 
 
 class GroupRole(enum.Enum):

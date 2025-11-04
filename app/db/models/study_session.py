@@ -3,7 +3,7 @@ import enum
 from sqlalchemy import Column, ForeignKey, Enum, DateTime, func, UUID
 from sqlalchemy.orm import relationship
 
-from app.db.session import Base
+from app.db.base import Base
 
 import uuid
 
@@ -17,7 +17,6 @@ class SessionStatus(enum.Enum):
 class StudySession(Base):
     __tablename__ = "study_sessions"
 
-    interval_id = Column(UUID(as_uuid=True), primary_key=True)
     session_id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     user_id = Column(
         UUID(as_uuid=True), ForeignKey("users.user_id", ondelete="CASCADE"), index=True
